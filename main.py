@@ -1,16 +1,10 @@
 import subprocess, glob, os, sys, ntpath
 from time import sleep
 from random import shuffle
-# import resize
 
-def getFileNameFromPath(path):
-    head, tail = ntpath.split(path)
-    return tail or ntpath.basename(head)
 input = raw_input
 
-
 #Target, Scene
-
 appropriate = [('octopus', 'sea2'), ('safetyringX', 'swimmingpool4'), ('hat2', 'dining1'), ('dice2', 'ludoscene1')]
 inappropriate_context_similar = [('maiilbox1', 'kitchen1'), ('starfish1', 'christmas4'), ('frenchfries', 'studytable'), ('orange1', 'ballscene2')]
 inappropriate_context_different = [('hair1', 'diningtable1'), ('donut1', 'road6'), ('penstand1', 'sky'), ('present3', 'eating2')]
@@ -18,22 +12,14 @@ no_context = [('bread4', 'blank'), ('star1', 'blank'),('vlc2', 'blank'), ('tenni
 
 pairings = appropriate + inappropriate_context_different + inappropriate_context_similar + no_context
 input_dir = "Images_Final"
-# for filepath in glob.glob(os.path.join('Images_Final', '*.jpg'))  + glob.glob(os.path.join('Images_Final', '*.jpeg')):
-# 	if os.path.isfile(filepath):
-# 		print (filepath)
-# 		if 'win' in sys.platform:
-# 			p = subprocess.Popen(["start", filepath], shell=True)
-# 		else:
-# 			p = subprocess.Popen(["display", filepath])
-# 		sleep(1)
-# 		if 'win' in sys.platform:
-# 			subprocess.call(['taskkill', '/F', '/FI',' WINDOWTITLE eq ' + getFileNameFromPath(filepath) + '*'])
-# 		else:
-# 			p.kill()
 
 
 #Holder for image process
 p = None
+
+def getFileNameFromPath(path):
+    head, tail = ntpath.split(path)
+    return tail or ntpath.basename(head)
 
 def show(filepath):
 	global p

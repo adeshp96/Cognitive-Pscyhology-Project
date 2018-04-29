@@ -1,11 +1,6 @@
 from PIL import Image
-import subprocess
-import glob
-import os
+import subprocess, glob, os, ntpath, cv2, sys
 from time import sleep
-import ntpath
-import cv2 
-import sys
 
 if os.path.isdir("CPsy Project Images"):
 	os.rename("CPsy Project Images", "Images")
