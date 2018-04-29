@@ -28,6 +28,6 @@ for filepath in glob.glob('Images/*/*.jpg') + glob.glob('Images/*/*.jpeg'):
 	if os.path.isfile(filepath):
 		print ("Resizing " + filepath)
 		im = Image.open(filepath)
-		imResize = im.resize((640,640), Image.ANTIALIAS)
+		imResize = im.resize((640,480), Image.ANTIALIAS)
 		imResize.save(os.path.abspath(output_dir + getFileNameFromPath(filepath)), 'JPEG', quality=100)
 

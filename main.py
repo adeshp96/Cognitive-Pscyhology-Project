@@ -11,6 +11,7 @@ inappropriate_context_different = [('hair1', 'diningtable1'), ('donut1', 'road6'
 no_context = [('bread4', 'blank'), ('star1', 'blank'),('vlc2', 'blank'), ('tennisball1', 'blank')]
 
 pairings = appropriate + inappropriate_context_different + inappropriate_context_similar + no_context
+
 input_dir = "Images_Final"
 
 
@@ -36,6 +37,7 @@ def hide(filepath):
 		p.kill()
 
 def process(targetfile, scenefile):
+	print targetfile, scenefile
 	scenefilepath = os.path.join(input_dir, scenefile + '.jpg')
 	targetfilepath = os.path.join(input_dir, targetfile + '.jpg')
 	if os.path.exists(scenefilepath) is False:
