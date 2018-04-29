@@ -2,8 +2,6 @@ import subprocess, glob, os, sys, ntpath
 from time import sleep
 from random import shuffle
 
-input = raw_input
-
 #Target, Scene
 appropriate = [('octopus', 'sea2'), ('safetyringX', 'swimmingpool4'), ('hat2', 'dining1'), ('dice2', 'ludoscene1')]
 inappropriate_context_similar = [('maiilbox1', 'kitchen1'), ('starfish1', 'christmas4'), ('frenchfries', 'studytable'), ('orange1', 'ballscene2')]
@@ -32,12 +30,15 @@ def show(filepath):
 def hide(filepath):
 	global p
 	if 'win' in sys.platform:
-		subprocess.call(['taskkill', '/F', '/FI',' WINDOWTITLE eq ' + getFileNameFromPath(filepath) + '*'])
+		a = "INFO"
+		while "SUCCESS" not in a:
+			a = subprocess.check_output(['taskkill', '/F', '/FI',' WINDOWTITLE eq ' + getFileNameFromPath(filepath) + '*'])
+			a = str(a, 'utf-8')
 	else:
 		p.kill()
 
 def process(targetfile, scenefile):
-	print targetfile, scenefile
+	print (targetfile, scenefile)
 	scenefilepath = os.path.join(input_dir, scenefile + '.jpg')
 	targetfilepath = os.path.join(input_dir, targetfile + '.jpg')
 	if os.path.exists(scenefilepath) is False:
@@ -54,7 +55,7 @@ def process(targetfile, scenefile):
 	hide(scenefilepath)	
 	sleep(1.3)
 	show(targetfilepath)
-	sleep(0.1)
+	# sleep(0.1)
 	hide(targetfilepath)
 	a = input ("Enter name of object you saw:\n")
 	a = input("Give confidence rating out of 5:\n")
