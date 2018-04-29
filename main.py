@@ -58,7 +58,7 @@ def process(targetfile, scenefile):
 	if 'win' in sys.platform:
 		pass
 	else:
-		sleep(0.1)
+		sleep(0.2)
 	hide(targetfilepath)
 	a = input ("Enter name of object you saw:\n")
 	a = input("Give confidence rating out of 5:\n")
