@@ -15,6 +15,8 @@ input_dir = "Images_Final"
 
 blankfilepath = os.path.join(input_dir,  'blank.jpg')
 
+if sys.version_info < (3, 0):
+	input = raw_input
 
 def getFileNameFromPath(path):
     head, tail = ntpath.split(path)
