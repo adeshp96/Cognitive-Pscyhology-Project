@@ -32,7 +32,7 @@ def show(filepath, time):
 
 
 def process(targetfile, scenefile):
-	print (targetfile, scenefile)
+	# print (targetfile, scenefile)
 	scenefilepath = os.path.join(input_dir, scenefile + '.jpg')
 	targetfilepath = os.path.join(input_dir, targetfile + '.jpg')
 	if os.path.exists(scenefilepath) is False:
@@ -59,5 +59,7 @@ shuffle(pairings)
 		# print (filepath)
 		# show(filepath, 0.1)
 
-for p in pairings:
+for i in range(len(pairings)):
+	p = pairings[i]
+	print ("Trial #"+str(i + 1))
 	process(p[0], p[1])
