@@ -1,4 +1,5 @@
 import subprocess, glob, os, sys, ntpath
+import matplotlib.pyplot as plt, matplotlib.image as mpimg
 from time import sleep
 from random import shuffle
 
@@ -12,30 +13,21 @@ pairings = appropriate + inappropriate_context_different + inappropriate_context
 
 input_dir = "Images_Final"
 
+blankfilepath = os.path.join(input_dir,  'blank.jpg')
 
-#Holder for image process
-p = None
 
 def getFileNameFromPath(path):
     head, tail = ntpath.split(path)
     return tail or ntpath.basename(head)
 
-def show(filepath):
-	global p
-	if 'win' in sys.platform:
-		p = subprocess.Popen(["start", filepath], shell=True)
-	else:
-		p = subprocess.Popen(["display", filepath])
+def show(filepath, time):
+	global plt
+	image = mpimg.imread(filepath)
+	plt.imshow(image, cmap = "gray")
+	plt.axis("off")
+	plt.show(block = False)
+	plt.pause(time)
 
-def hide(filepath):
-	global p
-	if 'win' in sys.platform:
-		a = "INFO"
-		while "SUCCESS" not in a:
-			a = subprocess.check_output(['taskkill', '/F', '/FI',' WINDOWTITLE eq ' + getFileNameFromPath(filepath) + '*'])
-			a = str(a, 'utf-8')
-	else:
-		p.kill()
 
 def process(targetfile, scenefile):
 	print (targetfile, scenefile)
@@ -49,22 +41,21 @@ def process(targetfile, scenefile):
 		print (scenefilepath)
 		print (targetfilepath)
 		print ("File doesn't exist. Aborting!")
+		sleep(2)
 		sys.exit(1)
-	show(scenefilepath)	
-	sleep(2)
-	hide(scenefilepath)	
-	sleep(1.3)
-	show(targetfilepath)
-	if 'win' in sys.platform:
-		pass
-	else:
-		sleep(0.2)
-	hide(targetfilepath)
+	show(scenefilepath, 2)
+	show(blankfilepath, 1.3)
+	show(targetfilepath, 0.08)
+	plt.close()
 	a = input ("Enter name of object you saw:\n")
 	a = input("Give confidence rating out of 5:\n")
 
-
 shuffle(pairings)
+
+# for filepath in glob.glob(os.path.join('Images_Final', '*.jpg'))  + glob.glob(os.path.join('Images_Final', '*.jpeg')):
+	# if os.path.isfile(filepath):
+		# print (filepath)
+		# show(filepath, 0.1)
 
 for p in pairings:
 	process(p[0], p[1])
