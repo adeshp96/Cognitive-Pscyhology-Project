@@ -47,7 +47,7 @@ def process(targetfile, scenefile):
 		sys.exit(1)
 	show(scenefilepath, 2)
 	show(blankfilepath, 1.3)
-	show(targetfilepath, 0.08)
+	show(targetfilepath, 0.02) #Choose from 0.02, 0.04, 0.06 or 0.12
 	plt.close()
 	a = input ("Enter name of object you saw:\n")
 	a = input("Give confidence rating out of 5:\n")
