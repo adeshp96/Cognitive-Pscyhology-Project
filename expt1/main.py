@@ -7,7 +7,7 @@ from random import shuffle
 appropriate = [('octopus', 'sea2'), ('safetyringX', 'swimmingpool4'), ('hat2', 'dining1'), ('dice2', 'ludoscene1')]
 inappropriate_context_similar = [('maiilbox1', 'kitchen1'), ('starfish1', 'christmas4'), ('frenchfries', 'studytable'), ('orange1', 'ballscene2')]
 inappropriate_context_different = [('hair1', 'diningtable1'), ('donut1', 'road6'), ('penstand1', 'sky'), ('present3', 'eating2')]
-no_context = [('bread4', 'blank'), ('star1', 'blank'),('vlc2', 'blank'), ('tennisball1', 'blank')]
+no_context = [('bread4', 'blank3'), ('star1', 'blank3'),('vlc2', 'blank3'), ('tennisball1', 'blank3')]
 
 pairings = appropriate + inappropriate_context_different + inappropriate_context_similar + no_context
 
@@ -15,7 +15,7 @@ input_dir = "Images_Final"
 
 plt.switch_backend('TkAgg')
 
-blankfilepath = os.path.join(input_dir,  'blank.jpg')
+blankfilepath = os.path.join(input_dir,  'blank2.jpg')
 
 if sys.version_info < (3, 0):
 	input = raw_input
