@@ -1,1 +1,5 @@
 *.pyc
+expt1/build/
+expt2/build/
+build
+main.spec
