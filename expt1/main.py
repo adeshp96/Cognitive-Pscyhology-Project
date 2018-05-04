@@ -17,6 +17,8 @@ plt.switch_backend('TkAgg')
 
 blankfilepath = os.path.join(input_dir,  'blank2.jpg')
 
+
+
 if sys.version_info < (3, 0):
 	input = raw_input
 
@@ -24,8 +26,10 @@ def getFileNameFromPath(path):
     head, tail = ntpath.split(path)
     return tail or ntpath.basename(head)
 
-def show(filepath, time):
+def show(filepath, time, close_on_click = False, close_on_button_press = False):
 	global plt
+	if filepath is None:
+		return
 	image = mpimg.imread(filepath)
 	plt.imshow(image, cmap = "gray")
 	plt.axis("off")
@@ -34,9 +38,21 @@ def show(filepath, time):
 		mng.window.state('zoomed')
 	else:
 		mng.resize(*mng.window.maxsize())
-	plt.show(block = False)
-	plt.gcf().canvas.set_window_title("Experiment Window")
-	plt.pause(time)
+	if close_on_click or close_on_button_press:
+		cid = None
+		def onclick(event):
+			plt.gcf().canvas.mpl_disconnect(cid)
+			plt.close()
+			return
+		if close_on_click:
+			cid = plt.gcf().canvas.mpl_connect('button_press_event', onclick)
+		if close_on_button_press:
+			cid = plt.gcf().canvas.mpl_connect('key_press_event', onclick)
+		plt.show()
+	else:
+		plt.show(block = False)
+		plt.gcf().canvas.set_window_title("Experiment Window")
+		plt.pause(time)
 
 
 def process(targetfile, scenefile):
@@ -58,6 +74,9 @@ def process(targetfile, scenefile):
 	plt.close()
 	a = input ("Enter name of object you saw:\n")
 	a = input("Give confidence rating out of 5:\n")
+
+
+show('Images_Final/expt1_instruction.jpg', time = None, close_on_button_press = True)
 
 shuffle(pairings)
 

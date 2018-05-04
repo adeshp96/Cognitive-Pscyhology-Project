@@ -17,12 +17,11 @@ plt.switch_backend('TkAgg')
 blankfilepath = os.path.join(input_dir,  'blank.jpg')
 answerfilepath = os.path.join(input_dir,  'answer.jpg')
 
-
 def getFileNameFromPath(path):
     head, tail = ntpath.split(path)
     return tail or ntpath.basename(head)
 
-def show(filepath, time, close_on_click = False):
+def show(filepath, time, close_on_click = False, close_on_button_press = False):
 	global plt
 	if filepath is None:
 		return
@@ -34,13 +33,16 @@ def show(filepath, time, close_on_click = False):
 		mng.window.state('zoomed')
 	else:
 		mng.resize(*mng.window.maxsize())
-	if close_on_click:
+	if close_on_click or close_on_button_press:
 		cid = None
 		def onclick(event):
 			plt.gcf().canvas.mpl_disconnect(cid)
 			plt.close()
 			return
-		cid = plt.gcf().canvas.mpl_connect('button_press_event', onclick)
+		if close_on_click:
+			cid = plt.gcf().canvas.mpl_connect('button_press_event', onclick)
+		if close_on_button_press:
+			cid = plt.gcf().canvas.mpl_connect('key_press_event', onclick)
 		plt.show()
 	else:
 		plt.show(block = False)
@@ -71,6 +73,8 @@ def process(targetfile, previewfile, scenefile):
 	show(previewfilepath, 1.2)
 	show(targetfilepath, 2.2)
 	show(answerfilepath, time = None, close_on_click = True)
+
+show('Images_Final/expt2_instruction.jpg', time = None, close_on_button_press = True)
 
 shuffle(pairings)
 
