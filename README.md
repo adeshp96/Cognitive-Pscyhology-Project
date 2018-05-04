@@ -1,4 +1,6 @@
 # Cognitive-Pscyhology-Project
+Run effect of contextual scene.exe or memory for object positions.exe
+<br/>
 > cd expt1 <br/>
 > pyinstaller --onefile --noconsole .\main.py <br/>
 > cd expt2 <br/>
