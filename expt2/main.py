@@ -2,6 +2,9 @@ import os, sys, ntpath
 import matplotlib.pyplot as plt, matplotlib.image as mpimg
 from time import sleep
 from random import shuffle
+import matplotlib
+
+matplotlib.rcParams['toolbar'] = 'None'
 
 #Target, Scene
 present_pairings = [('tv', 'present', 'aroundtv'), ('blender', 'present', 'kitchen'), ('plant', 'present', 'bookshelf')]
@@ -43,6 +46,7 @@ def show(filepath, time, close_on_click = False, close_on_button_press = False):
 			cid = plt.gcf().canvas.mpl_connect('button_press_event', onclick)
 		if close_on_button_press:
 			cid = plt.gcf().canvas.mpl_connect('key_press_event', onclick)
+		plt.gcf().canvas.set_window_title("Experiment Window")
 		plt.show()
 	else:
 		plt.show(block = False)
@@ -69,7 +73,7 @@ def process(targetfile, previewfile, scenefile):
 		sleep(2)
 		sys.exit(1)
 	show(blankfilepath, 1)
-	show(scenefilepath, 5) #Original was 20
+	show(scenefilepath, 5)
 	show(previewfilepath, 1.2)
 	show(targetfilepath, 2.2)
 	show(answerfilepath, time = None, close_on_click = True)

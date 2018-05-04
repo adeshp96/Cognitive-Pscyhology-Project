@@ -2,6 +2,10 @@ import os, sys, ntpath
 import matplotlib.pyplot as plt, matplotlib.image as mpimg
 from time import sleep
 from random import shuffle
+from tkinter import *
+import matplotlib
+
+matplotlib.rcParams['toolbar'] = 'None'
 
 #Target, Scene
 appropriate = [('octopus', 'sea2'), ('safetyringX', 'swimmingpool4'), ('hat2', 'dining1'), ('dice2', 'ludoscene1')]
@@ -16,7 +20,6 @@ input_dir = "Images_Final"
 plt.switch_backend('TkAgg')
 
 blankfilepath = os.path.join(input_dir,  'blank2.jpg')
-
 
 
 if sys.version_info < (3, 0):
@@ -48,6 +51,7 @@ def show(filepath, time, close_on_click = False, close_on_button_press = False):
 			cid = plt.gcf().canvas.mpl_connect('button_press_event', onclick)
 		if close_on_button_press:
 			cid = plt.gcf().canvas.mpl_connect('key_press_event', onclick)
+		plt.gcf().canvas.set_window_title("Experiment Window")
 		plt.show()
 	else:
 		plt.show(block = False)
@@ -72,8 +76,24 @@ def process(targetfile, scenefile):
 	show(blankfilepath, 1.3)
 	show(targetfilepath, 0.04) #Choose from 0.02, 0.04, 0.06 or 0.12
 	plt.close()
-	a = input ("Enter name of object you saw:\n")
-	a = input("Give confidence rating out of 5:\n")
+	if 'win' in sys.platform:
+		master = Tk()
+		master.title("Input")
+		def show_entry_fields():
+			master.quit()
+			return
+		Label(master, text="Name").grid(row=0)
+		Label(master, text="Confidence (1-5)").grid(row=1)
+		e1 = Entry(master)
+		e2 = Entry(master)
+		e1.grid(row=0, column=1)
+		e2.grid(row=1, column=1)
+		Button(master, text='Submit', command=master.destroy).grid(row=3, column=0, sticky=W, pady=4)
+		mainloop()
+		print ("", end = "")
+	else:
+		a = input ("Enter name of object you saw:\n")
+		a = input("Give confidence rating out of 5:\n")
 
 
 show('Images_Final/expt1_instruction.jpg', time = None, close_on_button_press = True)
